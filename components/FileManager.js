@@ -2,52 +2,51 @@ import * as FileSystem from 'expo-file-system';
 
 import React, { useEffect, useState } from 'react'
 import {   SafeAreaView,
-    View,
     FlatList,
     StyleSheet,
     Text,
     StatusBar, 
-    Button,
     TouchableOpacity} from 'react-native';
 
-const FileManager = () => {
+const FileManager = ({navigation}) => {
 
     const [files, setFiles] = useState([]);
 
-
-
-    const dir = FileSystem.cacheDirectory + 'Camera/';
+    const dir = FileSystem.cacheDirectory + "Camera/";
     const checkIfExists = async () => {
-        const dirInfo = await FileSystem.getInfoAsync(dir);
-        if(dirInfo){
-            const temp = await FileSystem.readDirectoryAsync(dir);
-            console.log(temp);
-            setFiles([...temp])
-        }
-    } 
+      const dirInfo = await FileSystem.getInfoAsync(dir);
+      if (dirInfo) {
+        const temp = await FileSystem.readDirectoryAsync(dir);
+        console.log(temp);
+        setFiles([...temp]);
+      }
+    };
 
     useEffect(() => {
-        checkIfExists();
-      },[]);
+      checkIfExists();
+    }, []);
 
-      const onPress = (item) => {
-        console.log(item);
-      }
-    
-  return (
+    const onPress = (item) => {
+      navigation.navigate('VideoPlayer',{uri: dir + item})
+    };
 
-    
-
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={files}
-        renderItem={({item}) => <TouchableOpacity title={item} style={styles.item} onPress={() => onPress(item)}>
-            <Text style={styles.text}>{item}</Text></TouchableOpacity>}
-        keyExtractor={item => item}
-      />
-    </SafeAreaView>
-
-  )
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={files}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              title={item}
+              style={styles.item}
+              onPress={() => onPress(item)}
+            >
+              <Text style={styles.text}>{item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item}
+        />
+      </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({

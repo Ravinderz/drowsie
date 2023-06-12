@@ -6,7 +6,8 @@ const LandingScreen = ({navigation}) => {
     <View>
     <Text>Navigation to other screens</Text>
     <Button title="Video Gallary"  onPress={() => navigation.navigate('VideoGalleryScreen')} />
-    <Button title="Video Player" onPress={() => navigation.navigate('VideoPlayerScreen')} />
+    <Button title="Video Recorder" onPress={() => navigation.navigate('VideoRecorder')} />
+    <Button title="Video Player" onPress={() => navigation.navigate('VideoPlayer')} />
     <Button title="File Manager" onPress={() => navigation.navigate('FileManager')} />
     </View>
   )
