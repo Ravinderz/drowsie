@@ -9,6 +9,13 @@ export default VideoPlayer = ({route}) => {
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
 
+    const getVideoRef = () => {
+      console.log(uri);
+      FileSystem.getContentUriAsync(uri).then(cUri => {
+        console.log(cUri);
+      });
+    }
+
     return (
       <View style={styles.container}>
         <Video
@@ -27,6 +34,12 @@ export default VideoPlayer = ({route}) => {
             title={status.isPlaying ? 'Pause' : 'Play'}
             onPress={() =>
               status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+            }
+          />
+          <Button
+            title={'send video'}
+            onPress={() =>
+              getVideoRef()
             }
           />
         </View>

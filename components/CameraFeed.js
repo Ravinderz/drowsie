@@ -1,5 +1,4 @@
 import { AutoFocus, Camera,CameraType, VideoQuality } from 'expo-camera';
-import { Permissions } from 'expo';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button,TouchableOpacity } from 'react-native';
 
@@ -19,6 +18,10 @@ const CameraFeed = () => {
     requestPermission();
     requestAudioPermission();
   }
+
+  useEffect(() => {
+    requestForPermissions();
+  },[])
   
   if (!permission) {
     // Camera permissions are still loading
@@ -56,7 +59,8 @@ const CameraFeed = () => {
     if(val?.uri && recordingCount < 10){
       setRecordingCount(recordingCount+1);
       setRecordings([...recordings,val]);
-      startRecording();
+      await stopRecording();
+      await startRecording();
     }else{
       setIsRecording(false);
       let val = await cameraRef.stopRecording();
@@ -69,7 +73,7 @@ const CameraFeed = () => {
     <View style={styles.container}>
     <Camera style={styles.camera} type={type} 
       ratio='16:9'
-      autoFocus={AutoFocus.auto}
+      autoFocus={AutoFocus.on}
       onCameraReady={cameraReadyHandler} 
       ref={(ref)=>setCameraRef(ref)}>
       <View style={styles.buttonContainer}>
