@@ -6,6 +6,7 @@ import LandingScreen from './LandingScreen';
 import FileManager from './FileManager';
 import VideoRecorder from './VideoRecorderScreen';
 import VideoPlayer from './VideoPlayerScreen';
+import TFModel from './TFModel';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,7 @@ const Home = () => (
       <Stack.Screen name="VideoRecorder" component={VideoRecorder} options={{ title: 'Video Recorder' }}/>
       <Stack.Screen name="VideoPlayer" component={VideoPlayer} options={{ title: 'Video Player' }}/>
       <Stack.Screen name="FileManager" component={FileManager} options={{ title: 'File Manager' }}/>
+      <Stack.Screen name="TFModel" component={TFModel} options={{ title: 'TFModel' }}/>
     </Stack.Navigator>
   </NavigationContainer>
 );
